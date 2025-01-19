@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+ Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="1.1.4" use-changelog="false" max-obj-count="6"
+	 last-position="0,0" last-zoom="0.95"
+	 default-schema="public" default-owner="postgres"
+	 layers="Default layer"
+	 active-layers="0"
+	 layer-name-colors="#000000"
+	 layer-rect-colors="#b4b4b4"
+	 show-layer-names="false" show-layer-rects="false">
+<database name="new_database" is-template="false" allow-conns="true">
+</database>
+
+<schema name="public" layers="0" fill-color="#e1e1e1" name-color="#000000" sql-disabled="true">
+</schema>
+
+<table name="Student" layers="0" collapse-mode="2" max-obj-count="8" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="80" y="40"/>
+	<column name="student_name" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="student_id" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="student_email" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="major" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="phone_number">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="year_of_study" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="student_id" type="pk-constr" table="public.&quot;Student&quot;">
+		<columns names="student_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="professor" layers="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="700" y="80"/>
+	<column name="professor_id" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="professor_name" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="specialization" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="prof_email" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<constraint name="professor_id" type="pk-constr" table="public.professor">
+		<columns names="professor_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="parents" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="100" y="460"/>
+	<column name="parent_contact" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="parents_address" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="parent_name" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="parents_ID" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="parents_ID" type="pk-constr" table="public.parents">
+		<columns names="parents_ID" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="courses" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="700" y="440"/>
+	<column name="number_of_courses" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="course_ID" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="course_name" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<constraint name="course_ID" type="pk-constr" table="public.courses">
+		<columns names="course_ID" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="Student_has_many_parents(Biological or Step)" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#6f644d"
+	 src-table="public.&quot;Student&quot;"
+	 dst-table="public.parents"
+	 src-required="true" dst-required="false">
+	<label ref-type="name-label">
+		<position x="7.63877" y="0.94701"/>
+	</label>
+</relationship>
+
+<relationship name="Student_has_many_courses" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#2123fe"
+	 src-table="public.&quot;Student&quot;"
+	 dst-table="public.courses"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="professor_teaches_many_courses" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#631dc3"
+	 src-table="public.professor"
+	 dst-table="public.courses"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<relationship name="many_Student_has_many_professor" type="relnn" layers="0"
+	 src-col-pattern="{sc}_{st}" dst-col-pattern="{sc}_{dt}"
+	 pk-pattern="{gt}_pk" uq-pattern="{gt}_uq"
+	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_fk"
+	 pk-col-pattern="id"
+	 custom-color="#c25d1a"
+	 src-table="public.&quot;Student&quot;"
+	 dst-table="public.professor"
+	 src-required="false" dst-required="false"
+	 table-name="many_Student_has_many_professor"/>
+
+<relationship name="parents_has_many_Student" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#096cbb"
+	 src-table="public.parents"
+	 dst-table="public.&quot;Student&quot;"
+	 src-required="true" dst-required="false">
+	<label ref-type="name-label">
+		<position x="42.7954" y="-40.053"/>
+	</label>
+</relationship>
+
+</dbmodel>
